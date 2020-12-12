@@ -23,8 +23,8 @@ class Asm2VecMemento:
 
     def populate(self, rep: Dict[bytes, Any]) -> None:
         self.params = asm2vec.internal.training.Asm2VecParams()
-        self.params.populate(rep[b'params'])
-        self.vocab = asm2vec.repo.deserialize_vocabulary(rep[b'vocab'])
+        self.params.populate(rep['params'])
+        self.vocab = asm2vec.repo.deserialize_vocabulary(rep['vocab'])
 
 
 class Asm2Vec:

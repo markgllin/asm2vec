@@ -90,11 +90,11 @@ def _serialize_token(token: Token) -> Dict[str, Any]:
 
 
 def _deserialize_token(rep: Dict[bytes, Any]) -> Token:
-    name = rep[b'name'].decode('utf-8')
-    v = np.array(rep[b'v'])
-    v_pred = np.array(rep[b'v_pred'])
-    count = rep[b'count']
-    frequency = rep[b'frequency']
+    name = rep['name']
+    v = np.array(rep['v'])
+    v_pred = np.array(rep['v_pred'])
+    count = rep['count']
+    frequency = rep['frequency']
 
     token = Token(VectorizedToken(name, v, v_pred))
     token.count = count
@@ -107,7 +107,7 @@ def serialize_vocabulary(vocab: Dict[str, Token]) -> Dict[str, Any]:
 
 
 def deserialize_vocabulary(rep: Dict[bytes, Any]) -> Dict[str, Token]:
-    return dict(zip(map(lambda b: b.decode('utf-8'), rep.keys()), map(_deserialize_token, rep.values())))
+    return dict(zip(rep.keys(), map(_deserialize_token, rep.values())))
 
 
 def _serialize_sequence(seq: List[asm2vec.asm.Instruction]) -> List[Any]:
