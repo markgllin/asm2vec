@@ -38,13 +38,13 @@ class Asm2VecParams:
         }
 
     def populate(self, rep: Dict[bytes, Any]) -> None:
-        self.d: int = rep.get(b'd', 200)
-        self.initial_alpha: float = rep.get(b'alpha', 0.0025)
-        self.alpha_update_interval: int = rep.get(b'alpha_update_interval', 10000)
-        self.num_of_rnd_walks: int = rep.get(b'rnd_walks', 3)
-        self.neg_samples: int = rep.get(b'neg_samples', 25)
-        self.iteration: int = rep.get(b'iteration', 1)
-        self.jobs: int = rep.get(b'jobs', 4)
+        self.d: int = rep.get('d', 200)
+        self.initial_alpha: float = rep.get('alpha', 0.0025)
+        self.alpha_update_interval: int = rep.get('alpha_update_interval', 10000)
+        self.num_of_rnd_walks: int = rep.get('rnd_walks', 3)
+        self.neg_samples: int = rep.get('neg_samples', 25)
+        self.iteration: int = rep.get('iteration', 1)
+        self.jobs: int = rep.get('jobs', 4)
 
 
 class SequenceWindow:
