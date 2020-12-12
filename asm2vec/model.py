@@ -1,6 +1,7 @@
 from typing import *
 
 import numpy as np
+import json
 
 import asm2vec.asm
 import asm2vec.repo
@@ -26,6 +27,16 @@ class Asm2VecMemento:
         self.params.populate(rep['params'])
         self.vocab = asm2vec.repo.deserialize_vocabulary(rep['vocab'])
 
+    def save_to_disk(self, filepath='./memento.txt') -> None:
+        serialized = self.serialize()
+        with open(filepath, 'w') as outfile:
+            json.dump(serialized, outfile)
+
+    def load_from_disk(self, filepath='./memento.txt') -> None:
+        with open('data.txt') as json_file:
+            serialized_memento = json.load(json_file)
+        
+        self.populate(serialized_memento)
 
 class Asm2Vec:
     def __init__(self, **kwargs):
