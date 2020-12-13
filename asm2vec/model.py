@@ -33,7 +33,7 @@ class Asm2VecMemento:
             json.dump(serialized, outfile)
 
     def load_from_disk(self, filepath='./memento.txt') -> None:
-        with open('data.txt') as json_file:
+        with open(filepath) as json_file:
             serialized_memento = json.load(json_file)
         
         self.populate(serialized_memento)
@@ -54,8 +54,21 @@ class Asm2Vec:
         self._vocab = memento.vocab
 
     def make_function_repo(self, funcs: List[asm2vec.asm.Function]) -> asm2vec.repo.FunctionRepository:
-        return asm2vec.internal.repr.make_function_repo(
+        self._func_repo = asm2vec.internal.repr.make_function_repo(
             funcs, self._params.d, self._params.num_of_rnd_walks, self._params.jobs)
+        return self._func_repo
+
+    def save_function_repo_to_disk(self, filepath='./model.txt', opt=asm2vec.repo.SERIALIZE_ALL) -> None:
+        serialized = asm2vec.repo.serialize_function_repo(self._func_repo, opt)
+        with open(filepath, 'w') as outfile:
+            json.dump(serialized, outfile)
+
+    def load_function_repo_from_disk(self, filepath='./model.txt'):
+        with open(filepath) as json_file:
+            serialized = json.load(json_file)
+        
+        return self.make_function_repo(asm2vec.repo.deserialize_function_repo(serialized))
+
 
     def train(self, repo: asm2vec.repo.FunctionRepository) -> None:
         asm2vec.internal.training.train(repo, self._params)
