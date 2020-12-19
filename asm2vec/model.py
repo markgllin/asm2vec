@@ -82,3 +82,9 @@ class Asm2Vec:
         asm2vec.internal.training.estimate(vf, estimate_repo, self._params)
 
         return vf.v
+
+    def cosine_similarity(self, target_func_vector: np.ndarray, query_func_vector: np.ndarray):
+        return (np.dot(target_func_vector, query_func_vector) / (np.linalg.norm(target_func_vector) * np.linalg.norm(query_func_vector)))
+
+    def cosine_distance(self, target_func_vector: np.ndarray, query_func_vector: np.ndarray):
+        return (1 - self.cosine_similarity(target_func_vector, query_func_vector))
