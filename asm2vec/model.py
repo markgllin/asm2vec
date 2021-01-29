@@ -58,12 +58,12 @@ class Asm2Vec:
             funcs, self._params.d, self._params.num_of_rnd_walks, self._params.jobs)
         return self._func_repo
 
-    def save_function_repo_to_disk(self, filepath='./model.txt', opt=asm2vec.repo.SERIALIZE_ALL) -> None:
+    def save_function_repo_to_disk(self, filepath='./functions.json', opt=asm2vec.repo.SERIALIZE_ALL) -> None:
         serialized = asm2vec.repo.serialize_function_repo(self._func_repo, opt)
         with open(filepath, 'w') as outfile:
             json.dump(serialized, outfile)
 
-    def load_function_repo_from_disk(self, filepath='./model.txt'):
+    def load_function_repo_from_disk(self, filepath='./functions.json'):
         with open(filepath) as json_file:
             serialized = json.load(json_file)
         

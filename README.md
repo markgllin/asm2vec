@@ -103,6 +103,25 @@ train_repo = model.make_function_repo(funcs)
 model.train(train_repo)
 ```
 
+To save/load the model to/from disk:
+```python
+# saving
+model.memento().save_to_disk(filepath=<path>)
+
+# loading
+memento = Asm2VecMemento()
+memento.load_from_disk(filepath=<path>)
+model = Asm2Vec(d=200)
+model.set_memento(memento)
+```
+
+To save/load vocab/function repository to disk:
+```python
+# contents are json formatted
+model.save_function_repo_to_disk(filepath=<path>)
+model.load_function_repo_from_disk(filepath=<path>)
+```
+
 ### Estimation
 
 You can use the `asm2vec.model.Asm2Vec.to_vec` method to convert a function into its vector representation.
