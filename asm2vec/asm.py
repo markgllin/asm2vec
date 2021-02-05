@@ -1,7 +1,9 @@
 from typing import *
 
+import re
 
 class Instruction:
+
     def __init__(self, op: str, *args: str):
         self._op = op
         self._args = list(args)
@@ -15,14 +17,90 @@ class Instruction:
     def args(self) -> List[str]:
         return self._args
 
+INSTRUCTIONS = [
+    'zext',
+    'xor',
+    'va_arg',
+    'urem',
+    'unreachable',
+    'uitofp',
+    'udiv',
+    'trunc',
+    'switch',
+    'sub',
+    'store',
+    'srem',
+    'sitofp',
+    'shufflevector',
+    'shl',
+    'sext',
+    'select',
+    'sdiv',
+    'ret',
+    'resume',
+    'ptrtoint',
+    'phi',
+    'or',
+    'mul',
+    'lshr',
+    'load',
+    'landingpad',
+    'invoke',
+    'inttoptr',
+    'insertvalue',
+    'insertelement',
+    'indirectbr',
+    'icmp',
+    'getelementptr',
+    'fsub',
+    'frem',
+    'freeze',
+    'fptrunc',
+    'fptoui',
+    'fptosi',
+    'fpext',
+    'fneg',
+    'fmul',
+    'fence',
+    'fdiv',
+    'fcmp',
+    'fadd',
+    'extractvalue',
+    'extractelement',
+    'cmpxchg',
+    'cleanupret',
+    'cleanuppad',
+    'catchret',
+    'catchpad',
+    'callbr',
+    'call',
+    'br',
+    'bitcast',
+    'atomicrmw',
+    'ashr',
+    'and',
+    'alloca',
+    'addrspacecast',
+    'add'
+]
 
 def parse_instruction(code: str) -> Instruction:
     sep_index = code.find(' ')
     if sep_index == -1:
         return Instruction(code)
 
-    op = code[:sep_index]   # Operator
-    args_list = list(map(str.strip, code[sep_index:].split(',')))   # Operands
+    op = None
+    for inst in INSTRUCTIONS:
+        if inst in code:
+            op = inst
+            code = code.replace(op, '')
+            code = re.sub(r"\s+", ' ', code)
+            break
+
+    if op == None:
+        raise Exception("Unknown operator in instruction '" + code + "'")
+
+    args_list = list(map(str.strip, code.split(' ')))   # Operands
     return Instruction(op, *args_list)
 
 
@@ -129,13 +207,14 @@ def walk_cfg(entry: BasicBlock, action: CFGWalkerCallbackType) -> None:
 class Function:
     _next_unused_id = 1
 
-    def __init__(self, entry: BasicBlock, name: str = None):
+    def __init__(self, entry: BasicBlock, name: str = None, filename: str = None):
         # Allocate a unique ID for the current Function object.
         self._id = self.__class__._next_unused_id
         self.__class__._next_unused_id += 1
 
         self._entry = entry
         self._name = name
+        self._filename = filename
         self._callees = []  # Functions that are called by this function
         self._callers = []  # Functions that call this function
 

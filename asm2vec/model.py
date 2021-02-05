@@ -1,4 +1,5 @@
 from typing import *
+from scipy import spatial
 
 import numpy as np
 import json
@@ -84,7 +85,9 @@ class Asm2Vec:
         return vf.v
 
     def cosine_similarity(self, target_func_vector: np.ndarray, query_func_vector: np.ndarray):
-        return (np.dot(target_func_vector, query_func_vector) / (np.linalg.norm(target_func_vector) * np.linalg.norm(query_func_vector)))
+        return 1 - self.cosine_distance(target_func_vector, query_func_vector)
+        # return (np.dot(target_func_vector, query_func_vector) / (np.linalg.norm(target_func_vector) * np.linalg.norm(query_func_vector)))
 
     def cosine_distance(self, target_func_vector: np.ndarray, query_func_vector: np.ndarray):
-        return (1 - self.cosine_similarity(target_func_vector, query_func_vector))
+        return spatial.distance.cosine(target_func_vector, query_func_vector)
+        # return (1 - self.cosine_similarity(target_func_vector, query_func_vector))
