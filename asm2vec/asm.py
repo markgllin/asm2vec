@@ -17,6 +17,7 @@ class Instruction:
     def args(self) -> List[str]:
         return self._args
 
+# https://llvm.org/docs/LangRef.html
 INSTRUCTIONS = [
     'zext',
     'xor',
