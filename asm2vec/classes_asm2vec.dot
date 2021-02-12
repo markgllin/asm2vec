@@ -1,0 +1,30 @@
+digraph "classes_asm2vec" {
+charset="utf-8"
+rankdir=BT
+"0" [label="{Asm2Vec|\l|cosine_distance(target_func_vector, query_func_vector)\lcosine_similarity(target_func_vector, query_func_vector)\lload_function_repo_from_disk(filepath)\lmake_function_repo(funcs)\lmemento()\lsave_function_repo_to_disk(filepath, opt)\lset_memento(memento)\lto_vec(f)\ltrain(repo)\l}", shape="record"];
+"1" [label="{Asm2VecMemento|params : Asm2VecParams, NoneType\lvocab : dict, NoneType\l|load_from_disk(filepath)\lpopulate(rep)\lsave_to_disk(filepath)\lserialize()\l}", shape="record"];
+"2" [label="{Asm2VecParams|alpha_update_interval\ld\linitial_alpha\literation\ljobs\lneg_samples\lnum_of_rnd_walks\l|populate(rep)\lto_dict()\l}", shape="record"];
+"3" [fontcolor="red", label="{AssemblySyntaxError|\l|message()\l}", shape="record"];
+"4" [label="{Atomic|\l|lock()\lvalue()\l}", shape="record"];
+"5" [label="{AtomicContextManager|\l|set(value)\lvalue()\l}", shape="record"];
+"6" [label="{BasicBlock|\l|add_instruction(instr)\ladd_predecessor(predecessor)\ladd_successor(successor)\lbody_instructions()\lfirst_instruction()\lid()\lin_degree()\linstructions()\llast_instruction()\lout_degree()\lpredecessors()\lsuccessors()\l}", shape="record"];
+"7" [label="{CFGBuilder|\l|add_instr(op, args)\lbuild()\lset_label(label)\l}", shape="record"];
+"8" [label="{CFGWalkerCallback|\l|on_enter(block)\lon_exit(block)\l}", shape="record"];
+"9" [label="{Counter|\l|inc()\lreset()\lval()\l}", shape="record"];
+"10" [label="{Function|\l|add_callee(f)\ladd_caller(f)\lcallees()\lcallers()\lentry()\lid()\lin_degree()\lname()\lout_degree()\l}", shape="record"];
+"11" [label="{FunctionRepository|\l|funcs()\lnum_of_tokens()\lvocab()\l}", shape="record"];
+"12" [label="{Instruction|\l|args()\lnumber_of_args()\lop()\l}", shape="record"];
+"13" [label="{LockContextManager|\l|exited()\l}", shape="record"];
+"14" [label="{NegativeSampler|\l|sample(k)\l}", shape="record"];
+"15" [label="{ParseContext|\l|builder()\llogger()\loptions()\l}", shape="record"];
+"16" [label="{ParseOptions|\l|func_names()\l}", shape="record"];
+"17" [label="{SequenceWindow|\l|curr_ins()\lcurr_ins_args()\lcurr_ins_op()\lmove_next()\lnext_ins()\lnext_ins_args()\lnext_ins_op()\lprev_ins()\lprev_ins_args()\lprev_ins_op()\l}", shape="record"];
+"18" [label="{SequentialFunction|\l|id()\lname()\lsequences()\l}", shape="record"];
+"19" [label="{Token|count : int\lfrequency : int\l|name()\lvectorized()\l}", shape="record"];
+"20" [label="{TrainingContext|TOKENS_HANDLED_COUNTER : str\l|add_counter(name, initial)\lalpha()\lcreate_sequence_window(seq)\lget_counter(name)\lis_estimating()\llock()\lparams()\lrepo()\lsampler()\lset_alpha(alpha)\l}", shape="record"];
+"21" [label="{VectorizedFunction|v : NoneType\l|sequential()\l}", shape="record"];
+"22" [label="{VectorizedToken|v : NoneType, ndarray\lv_pred : NoneType\l|name()\l}", shape="record"];
+"5" -> "13" [arrowhead="empty", arrowtail="none"];
+"7" -> "15" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="_builder", style="solid"];
+"16" -> "15" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="_options", style="solid"];
+}

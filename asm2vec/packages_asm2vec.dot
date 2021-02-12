@@ -1,0 +1,18 @@
+digraph "packages_asm2vec" {
+charset="utf-8"
+rankdir=BT
+"0" [label="__init__", shape="box"];
+"1" [label="asm", shape="box"];
+"2" [label="internal", shape="box"];
+"3" [label="internal.atomic", shape="box"];
+"4" [label="internal.parse", shape="box"];
+"5" [label="internal.repr", shape="box"];
+"6" [label="internal.sampling", shape="box"];
+"7" [label="internal.training", shape="box"];
+"8" [label="internal.util", shape="box"];
+"9" [label="logging", shape="box"];
+"10" [label="model", shape="box"];
+"11" [label="parse", shape="box"];
+"12" [label="repo", shape="box"];
+"4" -> "9" [arrowhead="open", arrowtail="none"];
+}

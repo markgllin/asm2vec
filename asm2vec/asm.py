@@ -208,14 +208,13 @@ def walk_cfg(entry: BasicBlock, action: CFGWalkerCallbackType) -> None:
 class Function:
     _next_unused_id = 1
 
-    def __init__(self, entry: BasicBlock, name: str = None, filename: str = None):
+    def __init__(self, entry: BasicBlock, name: str = None):
         # Allocate a unique ID for the current Function object.
         self._id = self.__class__._next_unused_id
         self.__class__._next_unused_id += 1
 
         self._entry = entry
         self._name = name
-        self._filename = filename
         self._callees = []  # Functions that are called by this function
         self._callers = []  # Functions that call this function
 

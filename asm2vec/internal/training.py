@@ -19,12 +19,12 @@ from asm2vec.logging import asm2vec_logger
 class Asm2VecParams:
     def __init__(self, **kwargs):
         self.d: int = kwargs.get('d', 200)
-        self.initial_alpha: float = kwargs.get('alpha', 0.0025)
+        self.initial_alpha: float = kwargs.get('alpha', 0.05)
         self.alpha_update_interval: int = kwargs.get('alpha_update_interval', 10000)
-        self.num_of_rnd_walks: int = kwargs.get('rnd_walks', 3)
+        self.num_of_rnd_walks: int = kwargs.get('rnd_walks', 10)
         self.neg_samples: int = kwargs.get('neg_samples', 25)
         self.iteration: int = kwargs.get('iteration', 1)
-        self.jobs: int = kwargs.get('jobs', 4)
+        self.jobs: int = kwargs.get('jobs', 8)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
